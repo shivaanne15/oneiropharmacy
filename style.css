@@ -648,6 +648,40 @@ section h2 {
   text-align: center;
 }
 
+.form-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.form-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f4f7fb;
+  border: 1.5px solid #d4dbe7;
+  border-radius: 10px;
+  padding: 11px 18px;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.form-link:hover {
+  border-color: var(--green);
+  background: #eef8f1;
+}
+
+.tab-panel .form-links {
+  margin: 4px 0 24px;
+}
+
+.tab-panel .guide-h {
+  margin-top: 26px;
+}
+
 .guide-note {
   background: #eef8f1;
   border-left: 4px solid var(--green);

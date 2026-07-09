@@ -227,6 +227,11 @@
       <ul class="guide-list" id="guide-items"></ul>
       <h3 class="guide-h">Accredited DMEPOS product codes</h3>
       <div class="code-table" id="guide-codes"></div>
+      <h3 class="guide-h">Forms &amp; documents</h3>
+      <div class="form-links">
+        <a class="form-link" id="guide-form-mn" href="#" target="_blank">&#128196; Medical Necessity Form</a>
+        <a class="form-link" id="guide-form-order" href="#" target="_blank">&#128221; Order Form</a>
+      </div>
       <div class="guide-note">Most insurance accepted — we verify your coverage before delivery. Equipment is delivered, set up, and fully supported by our team.</div>
       <div class="guide-actions">
         <a class="btn" href="tel:+12098987345">&#128222; Call to Order</a>
@@ -373,6 +378,9 @@
       document.getElementById("guide-items").innerHTML = g.items.map(i => `<li>${i}</li>`).join("");
       document.getElementById("guide-codes").innerHTML = g.codes.map(([code, label]) =>
         `<div class="code-row"><span class="code-chip">${code}</span><span>${label}</span></div>`).join("");
+      const slug = slugify(name);
+      document.getElementById("guide-form-mn").href = `forms/${slug}-medical-necessity.pdf`;
+      document.getElementById("guide-form-order").href = `forms/${slug}-order-form.pdf`;
       overlay.hidden = false;
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", "#" + slugify(name));
