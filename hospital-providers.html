@@ -147,11 +147,26 @@
     const requested = new URLSearchParams(location.search).get("tab");
     if (requested && document.getElementById("panel-" + requested)) showTab(requested);
 
-    // Bill pay form — shows confirmation until a payment processor is connected
+    // Bill pay form.
+    // To enable live payments: paste your Stripe Payment Link (https://buy.stripe.com/...)
+    // between the quotes below. Create one in Stripe Dashboard -> Payment Links ->
+    // "Customers choose what to pay". Until then, the form shows a demo confirmation.
+    const STRIPE_PAYMENT_LINK = "";
+
     const payForm = document.getElementById("pay-form");
     payForm.addEventListener("submit", e => {
       e.preventDefault();
       const data = new FormData(payForm);
+
+      if (STRIPE_PAYMENT_LINK) {
+        const url = new URL(STRIPE_PAYMENT_LINK);
+        url.searchParams.set("prefilled_email", data.get("email"));
+        url.searchParams.set("client_reference_id",
+          String(data.get("invoice")).replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 200));
+        window.location.href = url.toString();
+        return;
+      }
+
       const amount = parseFloat(data.get("amount")).toLocaleString("en-US", { style: "currency", currency: "USD" });
       document.getElementById("pay-success-msg").textContent =
         `Thank you! We received a payment request of ${amount} for invoice ${data.get("invoice")} from ${data.get("facility")}. A confirmation will be sent to ${data.get("email")}.`;
