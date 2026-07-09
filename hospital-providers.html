@@ -32,6 +32,7 @@
             <div class="dropdown-menu">
               <a href="hospital-providers.html?tab=tpn">TPNs</a>
               <a href="hospital-providers.html?tab=iv-antibiotics">IV Antibiotics</a>
+              <a href="hospital-providers.html?tab=pay">Pay Your Bill</a>
             </div>
           </li>
           <li><a href="index.html#services">Services</a></li>
@@ -51,6 +52,7 @@
     <div class="tabs" role="tablist">
       <button class="tab-btn active" id="tab-tpn" data-tab="tpn" role="tab">TPNs</button>
       <button class="tab-btn" id="tab-iv-antibiotics" data-tab="iv-antibiotics" role="tab">IV Antibiotics</button>
+      <button class="tab-btn" id="tab-pay" data-tab="pay" role="tab">Pay Your Bill</button>
     </div>
 
     <div class="tab-panel active" id="panel-tpn" role="tabpanel">
@@ -84,6 +86,45 @@
       </ul>
       <a class="btn" href="index.html#contact">Request IV Antibiotic Services</a>
     </div>
+
+    <div class="tab-panel" id="panel-pay" role="tabpanel">
+      <p class="eyebrow">Billing</p>
+      <h2>Pay Your Bill</h2>
+      <p class="section-sub">Settle your facility's invoice online — quick and secure.</p>
+      <div class="pay-grid">
+        <form class="pay-form" id="pay-form">
+          <label>
+            Facility Name
+            <input type="text" name="facility" placeholder="e.g., St. Joseph's Medical Center" required>
+          </label>
+          <label>
+            Invoice Number
+            <input type="text" name="invoice" placeholder="e.g., INV-2026-01234" required>
+          </label>
+          <label>
+            Billing Email
+            <input type="email" name="email" placeholder="ap@yourfacility.com" required>
+          </label>
+          <label>
+            Amount (USD)
+            <input type="number" name="amount" min="1" step="0.01" placeholder="0.00" required>
+          </label>
+          <button type="submit" class="btn pay-btn">Proceed to Secure Payment</button>
+          <p class="pay-note">&#128274; Payments are processed on a secure, encrypted checkout page.</p>
+        </form>
+        <div class="card pay-aside">
+          <h3>Other Ways to Pay</h3>
+          <p><strong>By phone:</strong> Call us at (209) 898-7345 — our billing team can take payment over the phone, 24/7.</p>
+          <p><strong>By mail:</strong> Send checks to Oneiro Pharmacy, 8026 Lorraine Avenue, Suite 207, Stockton, CA 95210.</p>
+          <p><strong>Questions about an invoice?</strong> Email info@oneiromanagementgroup.com and we'll get back to you promptly.</p>
+        </div>
+      </div>
+      <div class="pay-success" id="pay-success" hidden>
+        <h3>&#9989; Payment request received</h3>
+        <p id="pay-success-msg"></p>
+        <p class="pay-note">This demo site is not yet connected to a payment processor. Once a Stripe or Square account is linked, this button will take you straight to their secure checkout.</p>
+      </div>
+    </div>
   </section>
 
   <footer>
@@ -102,9 +143,22 @@
 
     buttons.forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
 
-    // Open the tab requested via the nav dropdown (?tab=tpn / ?tab=iv-antibiotics)
+    // Open the tab requested via the nav dropdown (?tab=tpn / ?tab=iv-antibiotics / ?tab=pay)
     const requested = new URLSearchParams(location.search).get("tab");
     if (requested && document.getElementById("panel-" + requested)) showTab(requested);
+
+    // Bill pay form — shows confirmation until a payment processor is connected
+    const payForm = document.getElementById("pay-form");
+    payForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const data = new FormData(payForm);
+      const amount = parseFloat(data.get("amount")).toLocaleString("en-US", { style: "currency", currency: "USD" });
+      document.getElementById("pay-success-msg").textContent =
+        `Thank you! We received a payment request of ${amount} for invoice ${data.get("invoice")} from ${data.get("facility")}. A confirmation will be sent to ${data.get("email")}.`;
+      payForm.hidden = true;
+      document.querySelector(".pay-aside").hidden = true;
+      document.getElementById("pay-success").hidden = false;
+    });
   </script>
 
 </body>
