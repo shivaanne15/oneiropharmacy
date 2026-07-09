@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Providers | Oneiro Pharmacy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="inner">
+      <div><span class="dot">●</span>Open 24/7 — 365 days a year</div>
+      <div>Call us today: <strong>(209) 898-7345</strong></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-wrap">
+      <a class="logo" href="index.html">
+        <span class="logo-name">ONEIRO <b>PHARMACY</b></span>
+        <span class="logo-sub">At Your Care &middot; Stockton, CA</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="hospital-providers.html" class="active">Hospital Providers</a>
+            <div class="dropdown-menu">
+              <a href="hospital-providers.html?tab=tpn">TPNs</a>
+              <a href="hospital-providers.html?tab=iv-antibiotics">IV Antibiotics</a>
+            </div>
+          </li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <a class="phone-pill" href="tel:+12098987345">&#128222; (209) 898-7345</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-title">
+    <h1>Hospital Providers</h1>
+    <p>Partner with Oneiro Pharmacy for outsourced sterile preparations — reliable TPN and IV antibiotic compounding for your facility, available 24/7.</p>
+  </div>
+
+  <section>
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" id="tab-tpn" data-tab="tpn" role="tab">TPNs</button>
+      <button class="tab-btn" id="tab-iv-antibiotics" data-tab="iv-antibiotics" role="tab">IV Antibiotics</button>
+    </div>
+
+    <div class="tab-panel active" id="panel-tpn" role="tabpanel">
+      <p class="eyebrow">Parenteral Nutrition</p>
+      <h2>Total Parenteral Nutrition (TPN)</h2>
+      <p class="section-sub">Customized parenteral nutrition, compounded to order for your patients.</p>
+      <p>Oneiro Pharmacy compounds patient-specific TPN formulations in our USP &lt;797&gt; compliant cleanrooms. Every bag is prepared to your prescriber's exact specifications and verified by our pharmacists before release, so your facility receives safe, accurate parenteral nutrition on a dependable schedule.</p>
+      <ul>
+        <li>Fully customized adult, pediatric, and neonatal TPN formulations</li>
+        <li>2-in-1 and 3-in-1 (total nutrient admixture) preparations</li>
+        <li>Electrolyte, vitamin, and trace element adjustments per patient labs</li>
+        <li>Daily and cyclic delivery schedules to match your census</li>
+        <li>STAT compounding for urgent new starts and formula changes</li>
+        <li>24/7 pharmacist consultation for your clinical team</li>
+      </ul>
+      <a class="btn" href="index.html#contact">Request TPN Services</a>
+    </div>
+
+    <div class="tab-panel" id="panel-iv-antibiotics" role="tabpanel">
+      <p class="eyebrow">Antimicrobial Therapy</p>
+      <h2>IV Antibiotics</h2>
+      <p class="section-sub">Ready-to-administer intravenous antibiotic therapy for your facility.</p>
+      <p>Our sterile compounding team prepares intravenous antibiotic doses for hospitals, surgical centers, and acute care facilities. Preparations are compounded in compliant cleanrooms with strict beyond-use dating, labeling, and quality controls — reducing the burden on your in-house pharmacy while maintaining continuity of therapy.</p>
+      <ul>
+        <li>Broad range of IV antibiotic and antimicrobial preparations</li>
+        <li>Patient-specific and batch-prepared doses (IV bags, syringes, elastomeric pumps)</li>
+        <li>Extended-infusion and continuous-infusion preparations</li>
+        <li>Strict USP &lt;797&gt; sterility, labeling, and beyond-use dating standards</li>
+        <li>STAT turnaround for urgent starts and dose changes</li>
+        <li>Reliable scheduled deliveries, 365 days a year</li>
+      </ul>
+      <a class="btn" href="index.html#contact">Request IV Antibiotic Services</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Oneiro Pharmacy &middot; 8026 Lorraine Avenue, Suite 207, Stockton, CA 95210 &middot; (209) 898-7345</p>
+    <p>Licensed 503A Pharmacy &middot; USP &lt;797&gt; &amp; &lt;800&gt; Compliant &middot; DMEPOS Accredited</p>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    function showTab(name) {
+      buttons.forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+      panels.forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
+    }
+
+    buttons.forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
+
+    // Open the tab requested via the nav dropdown (?tab=tpn / ?tab=iv-antibiotics)
+    const requested = new URLSearchParams(location.search).get("tab");
+    if (requested && document.getElementById("panel-" + requested)) showTab(requested);
+  </script>
+
+</body>
+</html>
