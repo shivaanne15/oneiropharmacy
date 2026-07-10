@@ -229,8 +229,8 @@
       <div class="code-table" id="guide-codes"></div>
       <h3 class="guide-h">Forms &amp; documents</h3>
       <div class="form-links">
-        <a class="form-link" id="guide-form-mn" href="#" target="_blank">&#128196; Medical Necessity Form</a>
-        <a class="form-link" id="guide-form-order" href="#" target="_blank">&#128221; Order Form</a>
+        <a class="form-link highlight" id="guide-form-order" href="#">&#9997; Fill Out Order Form Online</a>
+        <a class="form-link" id="guide-form-mn" href="#">&#128196; Medical Necessity Form</a>
       </div>
       <div class="guide-note">Most insurance accepted — we verify your coverage before delivery. Equipment is delivered, set up, and fully supported by our team.</div>
       <div class="guide-actions">
@@ -363,6 +363,21 @@
       }
     };
 
+    // Which clinical form pair serves each category
+    const FORM_URLS = {
+      "Mobility & Ambulatory":        { order: "clinical-forms/form.html?f=dmepos-order", mn: "clinical-forms/form.html?f=dmepos-lmn" },
+      "Hospital Beds":                { order: "clinical-forms/form.html?f=dmepos-order", mn: "clinical-forms/form.html?f=dmepos-lmn" },
+      "Bathroom Safety":              { order: "clinical-forms/form.html?f=dmepos-order", mn: "clinical-forms/form.html?f=dmepos-lmn" },
+      "Diabetic Supplies":            { order: "clinical-forms/form.html?f=diabetic-supplies-order", mn: "clinical-forms/form.html?f=diabetic-supplies-mn" },
+      "Infusion Pumps & Supplies":    { order: "clinical-forms/form.html?f=dmepos-order", mn: "clinical-forms/form.html?f=dmepos-lmn" },
+      "Enteral Nutrition & Feeding":  { order: "clinical-forms/form.html?f=enteral-order", mn: "clinical-forms/form.html?f=enteral-mn" },
+      "Parenteral Nutrition":         { order: "tpn-form/", mn: "clinical-forms/form.html?f=tpn-mn" },
+      "Nebulizers & Respiratory":     { order: "clinical-forms/form.html?f=nebulizer-order", mn: "clinical-forms/form.html?f=nebulizer-mn" },
+      "Suction Pumps":                { order: "clinical-forms/form.html?f=dmepos-order", mn: "clinical-forms/form.html?f=dmepos-lmn" },
+      "Heat & Cold Therapy":          { order: "clinical-forms/form.html?f=misc-dmepos-order", mn: "clinical-forms/form.html?f=misc-dmepos-mn" },
+      "Surgical Dressings":           { order: "clinical-forms/form.html?f=surgical-dressings-order", mn: "clinical-forms/form.html?f=surgical-dressings-mn" }
+    };
+
     const overlay = document.getElementById("guide-overlay");
 
     function slugify(name) {
@@ -378,9 +393,9 @@
       document.getElementById("guide-items").innerHTML = g.items.map(i => `<li>${i}</li>`).join("");
       document.getElementById("guide-codes").innerHTML = g.codes.map(([code, label]) =>
         `<div class="code-row"><span class="code-chip">${code}</span><span>${label}</span></div>`).join("");
-      const slug = slugify(name);
-      document.getElementById("guide-form-mn").href = `forms/${slug}-medical-necessity.pdf`;
-      document.getElementById("guide-form-order").href = `forms/${slug}-order-form.pdf`;
+      const urls = FORM_URLS[name] || { order: "clinical-forms/form.html?f=misc-dmepos-order", mn: "clinical-forms/form.html?f=misc-dmepos-mn" };
+      document.getElementById("guide-form-mn").href = urls.mn;
+      document.getElementById("guide-form-order").href = urls.order;
       overlay.hidden = false;
       document.body.style.overflow = "hidden";
       history.replaceState(null, "", "#" + slugify(name));
