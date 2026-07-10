@@ -413,6 +413,7 @@ section h2 {
 .card p {
   color: var(--gray);
   font-size: 0.94rem;
+  overflow-wrap: anywhere;
 }
 
 /* Alternating section background */

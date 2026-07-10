@@ -73,6 +73,7 @@ body {
 .pharmacy-block {
   text-align: right;
   font-size: 0.94rem;
+  overflow-wrap: anywhere;
 }
 
 .page-shell {
