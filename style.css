@@ -674,6 +674,17 @@ section h2 {
   background: #eef8f1;
 }
 
+.form-link.highlight {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--white);
+}
+
+.form-link.highlight:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
 .tab-panel .form-links {
   margin: 4px 0 24px;
 }

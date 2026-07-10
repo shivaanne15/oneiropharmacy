@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oneiro Pharmacy - TPN Order Form</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-card">
+      <div class="title-block">
+        <p class="eyebrow">Clinical Form</p>
+        <h1>TPN Order Form</h1>
+        <p>Total Parenteral Nutrition</p>
+      </div>
+      <img src="assets/oneiro-logo.png" alt="Oneiro Pharmacy logo" class="logo" />
+      <div class="pharmacy-block">
+        <h2>ONEIRO PHARMACY</h2>
+        <p>8026 Lorraine Ave, Ste 207, Stockton, CA 95210</p>
+        <p>PH: 209-898-7345 · FAX: 209-898-7347</p>
+        <p>info@oneiromanagementgroup.com</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell form-page-shell">
+    <form id="tpnForm" class="clinical-form">
+      <section class="form-section">
+        <h2>1. Patient Demographics &amp; Metrics</h2>
+        <div class="grid three">
+          <label>Hospital/Facility<input name="hospitalFacility" type="text" /></label>
+          <label>Location/Unit<input name="locationUnit" type="text" /></label>
+          <label>Room/Bed<input name="roomBed" type="text" /></label>
+        </div>
+        <div class="grid four">
+          <label class="span-2">Patient Name<input name="patientName" type="text" required /></label>
+          <label>DOB<input name="dob" type="date" /></label>
+          <label>Age<input name="age" type="text" inputmode="numeric" readonly class="auto-filled" aria-label="Age calculated from DOB" /></label>
+        </div>
+        <div class="grid measurement-row">
+          <label>Sex
+            <select name="sex">
+              <option value="">Select</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
+              <option>Prefer not to say</option>
+            </select>
+          </label>
+          <div class="field-control">
+            <label for="weightValue">Weight</label>
+            <div class="input-unit">
+              <input type="text" inputmode="decimal" id="weightValue" name="weightValue" />
+              <select name="weightUnit" aria-label="Weight unit">
+                <option value="kg">Kg</option>
+                <option value="lb">lb</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-control">
+            <label for="heightValue">Height</label>
+            <div class="input-unit">
+              <input type="text" inputmode="decimal" id="heightValue" name="heightValue" />
+              <select name="heightUnit" aria-label="Height unit">
+                <option value="cm">cm</option>
+                <option value="in">in</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <label>Allergies<textarea name="allergies" rows="2"></textarea></label>
+        <label>Diagnosis / Indication for TPN<textarea name="diagnosis" rows="2"></textarea></label>
+      </section>
+
+      <section class="form-section">
+        <h2>2. TPN Profile &amp; Nutritional Goals</h2>
+        <div class="choice-row">
+          <fieldset>
+            <legend>Formulation</legend>
+            <label class="choice"><input type="radio" name="formulation" value="2-in-1 TPN" /><span>2-in-1 TPN</span></label>
+            <label class="choice"><input type="radio" name="formulation" value="3-in-1 TPN" /><span>3-in-1 TPN</span></label>
+          </fieldset>
+          <fieldset>
+            <legend>IV Access</legend>
+            <label class="choice"><input type="radio" name="ivAccess" value="Central Line" /><span>Central Line</span></label>
+            <label class="choice"><input type="radio" name="ivAccess" value="PICC" /><span>PICC</span></label>
+            <label class="choice"><input type="radio" name="ivAccess" value="Peripheral" /><span>Peripheral</span></label>
+          </fieldset>
+        </div>
+
+        <div class="grid two">
+          <label>Total Vol. (mL)<input type="text" inputmode="decimal" name="totalVolume" /></label>
+          <label>Overfill (mL)<input type="text" inputmode="decimal" name="overfill" /></label>
+        </div>
+
+        <div class="admin-block">
+          <fieldset>
+            <legend>TPN Administration</legend>
+            <label class="choice"><input type="radio" name="administration" value="Continuous" /><span>Continuous</span></label>
+            <label class="choice"><input type="radio" name="administration" value="Cyclic" /><span>Cyclic</span></label>
+          </fieldset>
+          <div class="grid four compact-grid">
+            <label>Rate (mL/hr)<input type="text" inputmode="decimal" name="rate" /></label>
+            <label>Ramp Up (mL/hr)<input type="text" inputmode="decimal" name="rampUpRate" /></label>
+            <label>Ramp Up (hrs)<input type="text" inputmode="decimal" name="rampUpHours" /></label>
+            <label>Taper Rate (mL/hr)<input type="text" inputmode="decimal" name="taperRate" /></label>
+            <label>Taper (hrs)<input type="text" inputmode="decimal" name="taperHours" /></label>
+            <label>Goal Rate (mL/hr)<input type="text" inputmode="decimal" name="goalRate" /></label>
+            <label>Goal Duration (hrs)<input type="text" inputmode="decimal" name="goalHours" /></label>
+          </div>
+        </div>
+
+        <div class="grid three">
+          <label>Protein Req. (g/day)<input type="text" inputmode="decimal" name="proteinReq" /></label>
+          <label>Calorie Req. (kcal/day)<input type="text" inputmode="decimal" name="calorieReq" /></label>
+          <label>Fluid Req. (mL/day)<input type="text" inputmode="decimal" name="fluidReq" /></label>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>3. Macro Nutrients</h2>
+        <div class="table-like macro-grid">
+          <div class="table-head">Component</div>
+          <div class="table-head">Ordered Amount</div>
+          <label>Dextrose 70%</label>
+          <div class="amount-unit">
+            <input type="text" inputmode="decimal" name="dextrose70Amt" />
+            <select name="dextrose70Unit" aria-label="Dextrose 70% unit">
+              <option value="g">grams (g)</option>
+              <option value="mL">mL</option>
+            </select>
+          </div>
+
+          <label>Clinolipid</label>
+          <div class="amount-unit">
+            <input type="text" inputmode="decimal" name="clinolipidAmt" />
+            <select name="clinolipidUnit" aria-label="Clinolipid unit">
+              <option value="g">grams (g)</option>
+              <option value="mL">mL</option>
+            </select>
+          </div>
+
+          <label>Amino Acids (Clinisol 15%)</label>
+          <div class="amount-unit">
+            <input type="text" inputmode="decimal" name="aminoAcidsAmt" />
+            <select name="aminoAcidsUnit" aria-label="Amino Acids unit">
+              <option value="g">grams (g)</option>
+              <option value="mL">mL</option>
+            </select>
+          </div>
+
+          <label>SMOFlipid 20%</label>
+          <div class="amount-unit">
+            <input type="text" inputmode="decimal" name="smoFlipidAmt" />
+            <select name="smoFlipidUnit" aria-label="SMOFlipid unit">
+              <option value="g">grams (g)</option>
+              <option value="mL">mL</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="macro-notes-field">Additional Notes
+          <textarea name="macroAdditionalNotes" rows="3" placeholder="Use this section to inform the pharmacist of any additional requests regarding the nutrients"></textarea>
+        </label>
+      </section>
+
+      <section class="form-section">
+        <h2>4. Electrolytes <span class="section-header-note">(Please include units of measurement alongside the amounts)</span></h2>
+
+        <fieldset class="mode-selector">
+          <legend>Electrolyte Entry Format</legend>
+          <label class="choice"><input type="radio" name="electrolyteMode" value="individual" checked /><span>Specify concentrations individually</span></label>
+          <label class="choice"><input type="radio" name="electrolyteMode" value="combined" /><span>Specify combined electrolyte forms</span></label>
+        </fieldset>
+
+        <div id="individualElectrolytes" class="electrolyte-mode-panel">
+          <p class="section-subnote">Common individual electrolytes</p>
+          <div class="grid two">
+            <div class="sub-card">
+              <label>Sodium<input type="text" inputmode="decimal" name="sodium" placeholder="Example: 40 mEq" /></label>
+              <label>Phosphate<input type="text" inputmode="decimal" name="phosphate" placeholder="Example: 15 mmol" /></label>
+              <label>Magnesium<input type="text" inputmode="decimal" name="magnesium" placeholder="Example: 8 mEq" /></label>
+              <label>Chloride<input type="text" inputmode="decimal" name="chloride" placeholder="Example: 40 mEq" /></label>
+            </div>
+            <div class="sub-card">
+              <label>Potassium<input type="text" inputmode="decimal" name="potassium" placeholder="Example: 40 mEq" /></label>
+              <label>Calcium<input type="text" inputmode="decimal" name="calcium" placeholder="Example: 10 mEq" /></label>
+              <label>Cl: Acetate Ratio<input name="chlorideAcetateRatio" type="text" placeholder="Example: 1:1" /></label>
+            </div>
+          </div>
+        </div>
+
+        <div id="combinedElectrolytes" class="electrolyte-mode-panel" hidden>
+          <p class="section-subnote">Common combined electrolyte forms</p>
+          <div class="grid two">
+            <div class="sub-card">
+              <label>Na Acetate<input type="text" inputmode="decimal" name="sodiumAcetate" placeholder="Example: 40 mEq" /></label>
+              <label>Na Chloride<input type="text" inputmode="decimal" name="sodiumChloride" placeholder="Example: 40 mEq" /></label>
+              <label>Na Phosphate<input type="text" inputmode="decimal" name="sodiumPhosphate" placeholder="Example: 15 mmol" /></label>
+            </div>
+            <div class="sub-card">
+              <label>K Acetate<input type="text" inputmode="decimal" name="potassiumAcetate" placeholder="Example: 40 mEq" /></label>
+              <label>K Chloride<input type="text" inputmode="decimal" name="potassiumChloride" placeholder="Example: 40 mEq" /></label>
+              <label>K Phosphate<input type="text" inputmode="decimal" name="potassiumPhosphate" placeholder="Example: 15 mmol" /></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="dynamic-block">
+          <div class="dynamic-header">
+            <h3>Additional Electrolytes</h3>
+            <button type="button" class="secondary small-button" id="addElectrolyteBtn">+ Add Electrolyte</button>
+          </div>
+          <div id="additionalElectrolytesList" class="dynamic-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>5. Vitamins, Trace Elements &amp; Additives <span class="section-header-note">(Please include units of measurement alongside the amounts)</span></h2>
+        <div class="grid two">
+          <div class="sub-card">
+            <label>Infuvite Adult<input type="text" inputmode="decimal" name="infuviteAdult" placeholder="Example: 10 mL" /></label>
+            <label>Zinc Sulfate<input type="text" inputmode="decimal" name="zincSulfate" placeholder="Example: 5 mg" /></label>
+          </div>
+          <div class="sub-card">
+            <label>Tralement<input type="text" inputmode="decimal" name="tralement" placeholder="Example: 1 mL" /></label>
+            <label>Regular Insulin<input type="text" inputmode="decimal" name="regularInsulin" placeholder="Example: 10 units" /></label>
+          </div>
+        </div>
+
+        <div class="dynamic-block">
+          <div class="dynamic-header">
+            <h3>Additional Vitamins, Trace Elements &amp; Additives</h3>
+            <button type="button" class="secondary small-button" id="addAdditiveBtn">+ Add Item</button>
+          </div>
+          <div id="additionalAdditivesList" class="dynamic-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>6. Prescriber Order &amp; Authorization</h2>
+        <div class="grid two">
+          <label>Prescriber Name<input name="prescriberName" type="text" required /></label>
+          <label>Prescriber NPI<input name="prescriberNpi" type="text" /></label>
+          <label>Ordering RPh Name<input name="orderingRphName" type="text" /></label>
+          <label>Date / Time<input name="orderDateTime" type="datetime-local" /></label>
+        </div>
+        <label>Prescriber Signature<input name="prescriberSignature" type="text" placeholder="Typed name or signature note" /></label>
+      </section>
+
+      <section class="action-bar" aria-label="Form actions">
+        <button type="button" id="previewBtn">Preview PDF</button>
+        <button type="button" id="downloadBtn" class="secondary">Download PDF</button>
+        <button type="submit" class="primary">Submit &amp; Email PDF</button>
+      </section>
+
+      <div id="statusMessage" class="status-inline" role="status" aria-live="polite"></div>
+      <p class="note">The email button requires a backend endpoint. Set it in <code>script.js</code> after your hosting platform is chosen.</p>
+    </form>
+
+    <div id="noticeModal" class="notice-modal" role="dialog" aria-modal="true" aria-labelledby="noticeTitle" hidden>
+      <div class="notice-card">
+        <h2 id="noticeTitle">Form Notice</h2>
+        <p id="noticeMessage"></p>
+        <button type="button" id="noticeOkBtn" class="primary">OK</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
+</body>
+</html>

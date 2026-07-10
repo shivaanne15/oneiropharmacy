@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview PDF - Oneiro Pharmacy TPN Order Form</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header compact-header">
+    <div class="header-card">
+      <div class="title-block">
+        <p class="eyebrow">Clinical Form</p>
+        <h1>TPN Order Form</h1>
+        <p>Total Parenteral Nutrition</p>
+      </div>
+      <img src="assets/oneiro-logo.png" alt="Oneiro Pharmacy logo" class="logo" />
+      <div class="pharmacy-block">
+        <h2>ONEIRO PHARMACY</h2>
+        <p>8026 Lorraine Ave, Ste 207, Stockton, CA 95210</p>
+        <p>PH: 209-898-7345 · FAX: 209-898-7347</p>
+        <p>info@oneiromanagementgroup.com</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="preview-page-shell">
+    <section class="preview-full-panel">
+      <div class="preview-page-header">
+        <div>
+          <h2>PDF Preview</h2>
+          <p>Review the generated PDF. Use Back to Form if anything needs to be corrected.</p>
+        </div>
+        <div class="preview-actions">
+          <button type="button" id="backBtn">Back to Form</button>
+          <button type="button" id="downloadBtn" class="secondary">Download PDF</button>
+          <button type="button" id="submitEmailBtn" class="primary">Submit &amp; Email PDF</button>
+        </div>
+      </div>
+      <iframe id="pdfPreview" title="TPN order PDF preview"></iframe>
+      <div id="statusMessage" role="status" aria-live="polite"></div>
+    </section>
+
+    <div id="noticeModal" class="notice-modal" role="dialog" aria-modal="true" aria-labelledby="noticeTitle" hidden>
+      <div class="notice-card">
+        <h2 id="noticeTitle">Form Notice</h2>
+        <p id="noticeMessage"></p>
+        <button type="button" id="noticeOkBtn" class="primary">OK</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
+</body>
+</html>
