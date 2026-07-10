@@ -42,32 +42,30 @@
     }
 
     if (f.type === "checks" || f.type === "radio") {
-      const fs = el("fieldset", { class: "opts" });
+      const fs = el("fieldset");
       fs.appendChild(el("legend", { text: f.label }));
-      const row = el("div", { class: "opt-row" });
       f.options.forEach(opt => {
-        const lab = el("label");
+        const lab = el("label", { class: "choice" });
         const box = el("input", {
           type: f.type === "radio" ? "radio" : "checkbox",
           name: f.name,
           value: opt
         });
         lab.appendChild(box);
-        lab.appendChild(document.createTextNode(opt));
-        row.appendChild(lab);
+        lab.appendChild(el("span", { text: opt }));
+        fs.appendChild(lab);
       });
       if (f.other) {
-        const wrap = el("span", { class: "opt-other" });
-        wrap.appendChild(document.createTextNode("Other:"));
+        const wrap = el("label", { class: "opt-other" });
+        wrap.appendChild(el("span", { text: "Other:" }));
         wrap.appendChild(el("input", { type: "text", name: f.name + "_other" }));
-        row.appendChild(wrap);
+        fs.appendChild(wrap);
       }
-      fs.appendChild(row);
       return fs;
     }
 
     if (f.type === "table") {
-      const wrap = el("div");
+      const wrap = el("div", { class: "table-wrap" });
       const tbl = el("table", { class: "rows", "data-name": f.name });
       const thead = el("thead");
       const hr = el("tr");
@@ -93,7 +91,7 @@
       return wrap;
     }
 
-    const lab = el("label", { class: "f" });
+    const lab = el("label", { class: "field" });
     lab.appendChild(document.createTextNode(f.label));
     lab.appendChild(inputFor(f));
     if (f.span) lab.classList.add("span-" + f.span);
@@ -118,14 +116,20 @@
   });
   root.appendChild(formEl);
 
-  const actions = el("div", { class: "actions" });
-  const btnPdf = el("button", { type: "button", class: "btn-pdf", text: "Download PDF" });
-  const btnPrint = el("button", { type: "button", class: "btn-print", text: "Print" });
-  const btnClear = el("button", { type: "button", class: "btn-clear", text: "Clear form" });
+  const actions = el("div", { class: "action-bar" });
+  const btnPreview = el("button", { type: "button", text: "Preview PDF" });
+  const btnPdf = el("button", { type: "button", class: "secondary", text: "Download PDF" });
+  const btnSubmit = el("button", { type: "button", class: "primary", text: "Submit & Email PDF" });
+  actions.appendChild(btnPreview);
   actions.appendChild(btnPdf);
-  actions.appendChild(btnPrint);
-  actions.appendChild(btnClear);
+  actions.appendChild(btnSubmit);
   root.appendChild(actions);
+
+  const note = el("p", { class: "note" });
+  note.appendChild(document.createTextNode("The email button requires a backend endpoint — until it is connected, please download the PDF and fax or email it to us. "));
+  const btnClear = el("button", { type: "button", text: "Clear form" });
+  note.appendChild(btnClear);
+  root.appendChild(note);
   root.appendChild(el("p", { class: "doc-id", text: "Document ID: " + def.docId + "  ·  Rev: 2026.C  ·  Confidential Clinical Record" }));
 
   /* ---------- autosave ---------- */
@@ -183,8 +187,6 @@
     location.reload();
   });
 
-  btnPrint.addEventListener("click", () => window.print());
-
   /* ---------- PDF ---------- */
 
   const PAGE_W = 612, PAGE_H = 792, M = 46;
@@ -193,8 +195,8 @@
     "PH: 209-898-7345  ·  FAX: 209-898-7347  ·  info@oneiromanagementgroup.com"
   ];
 
-  btnPdf.addEventListener("click", () => {
-    if (!window.jspdf) { alert("PDF library is still loading — try again in a second."); return; }
+  function buildPdf() {
+    if (!window.jspdf) { alert("PDF library is still loading — try again in a second."); return null; }
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: "pt", format: "letter" });
     const data = collect();
@@ -378,6 +380,23 @@
     doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(110);
     doc.text("Document ID: " + def.docId + "  ·  Rev: 2026.C  ·  Confidential Clinical Record", PAGE_W / 2, PAGE_H - 24, { align: "center" });
 
-    doc.save(formId + ".pdf");
+    return doc;
+  }
+
+  btnPdf.addEventListener("click", () => {
+    const doc = buildPdf();
+    if (doc) doc.save(formId + ".pdf");
+  });
+
+  btnPreview.addEventListener("click", () => {
+    const doc = buildPdf();
+    if (!doc) return;
+    const url = doc.output("bloburl");
+    const win = window.open(url, "_blank");
+    if (!win) alert("Your browser blocked the preview popup — use Download PDF instead.");
+  });
+
+  btnSubmit.addEventListener("click", () => {
+    alert("Email submission is not connected yet. Please use Download PDF and fax it to 209-898-7347 or email info@oneiromanagementgroup.com.");
   });
 })();

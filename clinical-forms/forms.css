@@ -1,13 +1,14 @@
+/* Clinical forms — visual language identical to the TPN Order Form app. */
 :root {
   --blue: #172d5d;
   --blue-soft: #eaf0fb;
   --green: #67c985;
-  --green-dark: #4aa668;
   --ink: #1c2533;
   --muted: #667085;
   --line: #cfd7e3;
   --paper: #ffffff;
   --bg: #f4f7fb;
+  --danger: #9b1c1c;
   --radius: 14px;
   --shadow: 0 18px 42px rgba(23, 45, 93, 0.12);
 }
@@ -28,7 +29,7 @@ body {
 }
 
 .header-card {
-  max-width: 960px;
+  max-width: 1120px;
   margin: 0 auto;
   background: var(--paper);
   border: 1px solid var(--line);
@@ -36,7 +37,7 @@ body {
   box-shadow: var(--shadow);
   padding: 20px 24px;
   display: grid;
-  grid-template-columns: 1.4fr 150px 1.2fr;
+  grid-template-columns: 1fr 170px 1.35fr;
   align-items: center;
   gap: 24px;
 }
@@ -47,30 +48,23 @@ body {
   text-transform: uppercase;
   font-weight: 800;
   letter-spacing: 0.06em;
-  font-size: 0.8rem;
 }
 
 .title-block h1,
 .pharmacy-block h2 {
   margin: 4px 0;
   color: var(--blue);
-  line-height: 1.1;
-  font-size: 1.5rem;
-}
-
-.pharmacy-block h2 {
-  font-size: 1.05rem;
+  line-height: 1.05;
 }
 
 .title-block p,
 .pharmacy-block p {
   margin: 3px 0;
   color: var(--muted);
-  font-size: 0.9rem;
 }
 
 .logo {
-  width: 140px;
+  width: 165px;
   max-width: 100%;
   display: block;
   margin: 0 auto;
@@ -78,13 +72,14 @@ body {
 
 .pharmacy-block {
   text-align: right;
-  font-size: 0.9rem;
+  font-size: 0.94rem;
 }
 
 .page-shell {
-  max-width: 960px;
+  max-width: 1120px;
   margin: 0 auto 48px;
   padding: 12px 24px 36px;
+  display: block;
 }
 
 .back-link {
@@ -97,10 +92,11 @@ body {
 }
 
 .back-link:hover {
-  color: var(--green-dark);
+  color: var(--green);
 }
 
 .clinical-form {
+  width: 100%;
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -113,6 +109,7 @@ body {
   border-radius: var(--radius);
   padding: 20px 16px 16px;
   margin-bottom: 18px;
+  position: relative;
 }
 
 .form-section > h2 {
@@ -130,223 +127,283 @@ body {
 .section-note {
   margin: 0 0 14px;
   color: var(--muted);
-  font-size: 0.85rem;
-  font-style: italic;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .grid {
   display: grid;
-  gap: 12px 16px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 14px;
 }
 
-.grid.two { grid-template-columns: repeat(2, 1fr); }
-.grid.three { grid-template-columns: repeat(3, 1fr); }
-.grid.four { grid-template-columns: repeat(4, 1fr); }
+.grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
-.grid label,
-.field-full label,
-.clinical-form label.f {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--blue);
+.grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .span-2 { grid-column: span 2; }
 .span-3 { grid-column: span 3; }
 .span-4 { grid-column: span 4; }
 
-input[type="text"],
-input[type="date"],
-input[type="number"],
+label,
+legend {
+  display: block;
+  font-weight: 700;
+  font-size: 0.91rem;
+  color: #273548;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.grid .field {
+  margin-bottom: 0;
+}
+
+input,
 select,
 textarea {
-  font: inherit;
-  font-size: 0.92rem;
-  padding: 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  background: #fff;
   width: 100%;
+  margin-top: 6px;
+  border: 1px solid #c5cfdd;
+  border-radius: 9px;
+  padding: 10px 11px;
+  font: inherit;
+  background: #fff;
+  color: var(--ink);
 }
 
 textarea {
-  min-height: 74px;
   resize: vertical;
+  min-height: 84px;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: none;
+  outline: 3px solid rgba(103, 201, 133, 0.28);
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(103, 201, 133, 0.25);
 }
 
-fieldset.opts {
-  border: 1px dashed var(--line);
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin: 0 0 12px;
+fieldset {
+  border: 1px dashed #c5cfdd;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 0 0 14px;
 }
 
-fieldset.opts legend {
-  font-size: 0.8rem;
+.choice {
+  display: inline-grid;
+  grid-template-columns: 18px max-content;
+  align-items: center;
+  column-gap: 8px;
+  margin: 10px 18px 0 0;
   font-weight: 700;
-  color: var(--blue);
-  padding: 0 6px;
+  line-height: 1;
+  vertical-align: middle;
 }
 
-.opt-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  align-items: center;
+.choice span {
+  display: block;
+  line-height: 18px;
 }
 
-.opt-row label {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--ink);
-  white-space: nowrap;
+.choice input[type="radio"],
+.choice input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #9299a8;
+  border-radius: 50%;
+  background: #fff;
+  line-height: 1;
 }
 
-.opt-row input[type="checkbox"],
-.opt-row input[type="radio"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--green-dark);
+.choice input[type="radio"]:checked,
+.choice input[type="checkbox"]:checked {
+  border-color: var(--blue);
+  background: radial-gradient(circle, var(--blue) 0 42%, transparent 45%);
 }
 
 .opt-other {
-  display: inline-flex;
+  display: inline-grid;
+  grid-template-columns: max-content minmax(140px, 220px);
   align-items: center;
-  gap: 7px;
-  font-size: 0.9rem;
+  column-gap: 8px;
+  margin: 10px 18px 0 0;
+  font-weight: 700;
 }
 
 .opt-other input {
-  width: 170px;
-  padding: 5px 8px;
+  margin-top: 0;
+  padding: 8px 10px;
+}
+
+/* Dynamic item tables */
+.table-wrap {
+  margin-bottom: 14px;
 }
 
 table.rows {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 table.rows th {
-  text-align: left;
-  font-size: 0.75rem;
+  background: var(--blue-soft);
   color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 4px 6px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
 }
 
 table.rows td {
-  padding: 3px 4px;
+  padding: 8px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+table.rows tr:last-child td {
+  border-bottom: 0;
 }
 
 table.rows input {
-  padding: 7px 8px;
-  font-size: 0.88rem;
+  margin-top: 0;
+  padding: 9px 10px;
 }
 
 .add-row {
-  background: var(--blue-soft);
-  color: var(--blue);
-  border: 1px solid #b7c8df;
-  border-radius: 8px;
-  padding: 7px 14px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 13px;
   font: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 800;
   cursor: pointer;
+  color: var(--blue);
+  background: var(--blue-soft);
+  white-space: nowrap;
 }
 
 .add-row:hover {
-  background: #dbe7f8;
+  filter: brightness(0.97);
 }
 
-.actions {
+/* Action bar — same as TPN Order Form */
+.action-bar {
   position: sticky;
-  bottom: 14px;
-  background: var(--paper);
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 22px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 14px;
-  display: grid;
-  gap: 10px;
-  margin-top: 20px;
+  border-radius: var(--radius);
 }
 
-.actions button {
-  font: inherit;
-  font-weight: 700;
-  font-size: 0.98rem;
-  border: none;
+.action-bar button {
+  border: 0;
   border-radius: 999px;
-  padding: 13px 18px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 800;
   cursor: pointer;
-}
-
-.btn-pdf {
-  background: var(--green);
-  color: #fff;
-}
-
-.btn-pdf:hover { background: var(--green-dark); }
-
-.btn-print {
-  background: var(--blue-soft);
   color: var(--blue);
-  border: 1px solid #b7c8df;
+  background: var(--blue-soft);
 }
 
-.btn-clear {
+.action-bar button.primary {
+  color: #fff;
+  background: var(--blue);
+}
+
+.action-bar button.secondary {
+  color: #144f29;
+  background: #e6f7ec;
+}
+
+.action-bar button:hover {
+  filter: brightness(0.97);
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 14px 4px 0;
+}
+
+.note button {
+  border: none;
   background: none;
   color: var(--muted);
-  font-size: 0.85rem;
+  font: inherit;
+  font-size: 0.9rem;
   text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
 }
 
 .doc-id {
   text-align: center;
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   margin: 18px 0 0;
   font-style: italic;
 }
 
 /* Forms library index */
+.lib-head {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.lib-head h2 {
+  color: var(--blue);
+  margin: 18px 0 4px;
+}
+
 .lib-list {
-  max-width: 960px;
-  margin: 0 auto 48px;
+  max-width: 1120px;
+  margin: 0 auto 24px;
   padding: 12px 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 14px;
 }
 
 .lib-card {
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 18px 20px;
   text-decoration: none;
   color: var(--ink);
-  box-shadow: 0 3px 12px rgba(23, 45, 93, 0.07);
+  box-shadow: 0 4px 14px rgba(23, 45, 93, 0.08);
 }
 
 .lib-card:hover {
@@ -363,32 +420,38 @@ table.rows input {
   color: var(--muted);
 }
 
-.lib-head {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+@media (max-width: 960px) {
+  .grid.two,
+  .grid.three,
+  .grid.four {
+    grid-template-columns: 1fr;
+  }
 
-.lib-head h2 {
-  color: var(--blue);
-  margin: 18px 0 4px;
+  .span-2, .span-3, .span-4 { grid-column: auto; }
 }
 
 @media (max-width: 760px) {
   .header-card {
     grid-template-columns: 1fr;
-    text-align: center;
   }
 
-  .pharmacy-block { text-align: center; }
+  .pharmacy-block {
+    text-align: left;
+  }
 
-  .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+  .action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-  .span-2, .span-3, .span-4 { grid-column: span 1; }
+  table.rows th,
+  table.rows td {
+    padding: 6px;
+  }
 }
 
 @media print {
-  .site-header, .actions, .back-link { display: none; }
+  .site-header, .action-bar, .back-link, .note { display: none; }
   body { background: #fff; }
   .clinical-form { border: none; box-shadow: none; padding: 0; }
 }
