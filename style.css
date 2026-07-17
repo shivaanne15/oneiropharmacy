@@ -29,33 +29,6 @@ body {
   line-height: 1.6;
 }
 
-/* ===== Top info bar ===== */
-.topbar {
-  background: var(--navy);
-  color: var(--white);
-  font-size: 0.88rem;
-}
-
-.topbar .inner {
-  max-width: 1150px;
-  margin: 0 auto;
-  padding: 9px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.topbar .dot {
-  color: #6fd08c;
-  margin-right: 7px;
-}
-
-.topbar strong {
-  font-weight: 600;
-}
-
 /* ===== Header / Nav ===== */
 header {
   background: var(--white);
@@ -1087,10 +1060,6 @@ footer a {
 
   nav ul {
     flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .topbar .inner {
     justify-content: center;
   }
 }
